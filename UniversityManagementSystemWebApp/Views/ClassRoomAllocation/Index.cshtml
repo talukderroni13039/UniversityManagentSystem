@@ -1,0 +1,73 @@
+﻿@model IEnumerable<UniversityManagementSystemWebApp.Models.UserDefinedModels.ClassRoomAllocation>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>View Class Schedule and Room Allocation Information</h3>
+
+<p>
+    @Html.ActionLink("Allocate Classrooms", "Create")
+</p>
+
+@using (Html.BeginForm())
+{
+
+    <table align="center">
+        <tr>
+            <td>@Html.Label("Department", new { @class = "control-label col-md-2" })</td>
+            <td>
+                @Html.DropDownList("DepartmentId", null, "Select....", htmlAttributes: new { @class = "form-control", @onchange = @"form.submit();" })
+            </td>
+        </tr>
+    </table>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Course Code")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Course.CourseName)
+        </th>
+        <th>
+            @Html.DisplayName("Schedule Info")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.GroupBy(i => i.Course)) {
+    <tr>
+        <td>
+            @Html.Encode(item.Key.CourseCode)
+        </td>
+        <td>
+            @Html.Encode(item.Key.CourseName)
+        </td>
+        <td>
+            @foreach (var data in item)
+            {
+                <table>
+                    @if (data.Room != null)
+                    {
+                        <tr>
+                            @Html.Encode("R. No : " + data.Room.RoomNo),
+                            @Html.Encode(data.Day.Substring(0, 3)),
+                            @Html.Encode((DateTime.Today.Add(data.StartTime)).ToShortTimeString()) -
+                            @Html.Encode((DateTime.Today.Add(data.EndTime)).ToShortTimeString());
+                        </tr>
+                    }
+                    @if (data.Room == null)
+                    {
+                        <tr>
+                            @Html.Encode("Not Scheduled Yet")
+                        </tr>
+                    }
+                </table>
+            }
+        </td>
+    </tr>
+}
+
+</table>

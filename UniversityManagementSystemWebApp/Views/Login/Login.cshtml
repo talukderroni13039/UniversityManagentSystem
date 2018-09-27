@@ -1,0 +1,66 @@
+﻿@model UniversityManagementSystemWebApp.Models.UserAccount
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Login/Login_Layout.cshtml";
+}
+<section class="h-100">
+    <div class="container h-100">
+        <div class="row justify-content-md-center h-100">
+            <div class="card-wrapper">
+
+                <div class="card fat">
+                    <div class="card-body">
+
+
+                        @using (Html.BeginForm("Login", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+                                <h4>UserAccount</h4>
+                                <hr/>
+                                @Html.ValidationSummary(true)
+
+
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.UserName, new {@class = "control-label col-md-2"})
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.UserName)
+                                        @Html.ValidationMessageFor(model => model.UserName)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Password, new {@class = "control-label col-md-2"})
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Password)
+                                        @Html.ValidationMessageFor(model => model.Password)
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Log in" class="btn btn-default"/>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <p>
+                                @Html.ActionLink("Register", "Resister") if you don't have a local account.
+                            </p>
+
+                        }
+
+                    </div>
+                </div>
+                <div class="footer">
+                    <p>Copyright<a> &copy; UMSWA</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

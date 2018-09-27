@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - University Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @*<li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Course <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Course", "Create", "Course")</li>
+                            <li>@Html.ActionLink("CourseAssign", "AssignCourseToTeacher", "Course")</li>
+                            <li>@Html.ActionLink("UnassignCourses", "UnAssignAllCourses", "Course")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">ClassRoom<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("AllocateClass", "Create", "ClassRoomAllocation")</li>
+                            <li>@Html.ActionLink("UnallocateRooms", "UnAllocateAllClassrooms", "ClassRoomAllocation")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Student<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Enroll", "Create", "StudentEnrolledCourse")</li>
+                            <li>@Html.ActionLink("Result", "SaveStudentResult", "StudentEnrolledCourse")</li>
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink("Department", "Create", "Department")</li>
+                    <li>@*@Html.ActionLink("Course", "Create", "Course")*@</li>
+                    <li>@Html.ActionLink("Teacher", "Create", "Teacher")</li>
+                    <li>@*@Html.ActionLink("CourseAssign", "AssignCourseToTeacher", "Course")*@</li>
+                    <li>@Html.ActionLink("StudentRegister", "Create", "Student")</li>
+                    <li>@*@Html.ActionLink("Enroll", "Create", "StudentEnrolledCourse")*@</li>
+                    <li>@*@Html.ActionLink("Result", "SaveStudentResult", "StudentEnrolledCourse")*@</li>
+                    <li>@*@Html.ActionLink("AllocateClass", "Create", "ClassRoomAllocation")*@</li>
+                    <li>@*@Html.ActionLink("UnassignCourses", "UnAssignAllCourses", "Course")*@</li>
+                    <li>@*@Html.ActionLink("UnallocateRooms", "UnAllocateAllClassrooms", "ClassRoomAllocation")*@</li>
+                </ul>
+               
+                @*@Html.Partial("_LoginPartial")*@
+          </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - University Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+
+
+
+
+
+
+

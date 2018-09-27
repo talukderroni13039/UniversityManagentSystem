@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "UnAllocateAllClassrooms";
+}
+
+<h2>UnAllocate All Classrooms</h2>
+
+@using (Html.BeginForm())
+{
+
+    <div class="form-group" align="center">
+        <input type="submit" value="Unallocate Rooms" class="btn btn-default" onclick="return GetConfirmBox()"/>
+    </div>
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery-2.2.0.js"></script>
+    <script>
+        function GetConfirmBox() {
+            var flag = confirm('Are you sure to unallocate all classrooms info?');
+                if (flag == false)
+                    return false;
+        }
+    </script>
+}
+
+
+
+
+
+

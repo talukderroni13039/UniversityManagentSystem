@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "UnAssignAllCourses";
+}
+
+@{
+    if (TempData["message"] != null)
+    {
+        <script type="text/javascript">
+            alert(@Html.Raw(Json.Encode(TempData["message"])));
+        </script>
+    }
+}
+
+
+<h2>UnAssign All Courses</h2>
+
+@using (Html.BeginForm())
+{
+
+    <div class="form-group" align="center">
+        <input type="submit" value="Unassign Courses" class="btn btn-default" onclick="return GetConfirmBox()" />
+    </div>
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery-2.2.0.js"></script>
+    <script>
+        function GetConfirmBox() {
+            var flag = confirm('Are you sure to unassign all courses?');
+                if (flag == false)
+                    return false;
+        }
+    </script>
+}
+

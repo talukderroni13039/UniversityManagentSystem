@@ -1,0 +1,89 @@
+﻿@model IEnumerable<UniversityManagementSystemWebApp.Models.UserDefinedModels.Course>
+
+@{
+    ViewBag.Title = "ViewCourseStatics";
+}
+
+<h3>View Course Statics</h3>
+
+<p>
+    @Html.ActionLink("Assign Course To Teacher", "AssignCourseToTeacher")
+</p>
+@using (Html.BeginForm())
+{
+
+    <table align="center">
+        <tr>
+            <td>@Html.Label("Department", new {@class = "control-label col-md-2"})</td>
+            <td>
+                @Html.DropDownList("DepartmentId", null, "Select....", htmlAttributes: new {@class = "form-control", @onchange = @"form.submit();"})
+            </td>
+        </tr>
+    </table>
+}
+<h4>Course Information</h4>
+<table class="table">
+    <tr>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Department.DepartmentName)
+        </th>*@
+
+        <th>
+            @Html.DisplayNameFor(model => model.CourseCode)
+        </th>
+        <th>
+            @Html.DisplayName("Name/Title")
+        </th>
+        <th>
+            @Html.DisplayName("Semester")
+        </th>
+        <th>
+            @Html.DisplayName("Assigned To")
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.CourseCredit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CourseDescription)
+        </th>*@
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @*<td>
+            @Html.DisplayFor(modelItem => item.Department.DepartmentName)
+        </td>*@
+
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Semester.SemesterName)
+            </td>
+            <td>
+                @if (item.IsAssigned == true)
+                {
+                    @Html.DisplayFor(modelItem => item.Teacher.TeacherName)
+                }
+                @if (item.IsAssigned == false)
+                {
+                    @Html.DisplayName("Not Assigned Yet");
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+
+@*<script>
+function myFunction() {
+    var x = document.getElementById("DepartmentId").value;
+    document.getElementById("demo").innerHTML = "You selected: " + x;
+}
+</script>*@
+

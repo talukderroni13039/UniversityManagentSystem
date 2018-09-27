@@ -1,0 +1,108 @@
+﻿@model UniversityManagementSystemWebApp.Models.UserDefinedModels.Department
+
+@{
+    ViewBag.Title = "Create";
+   
+}
+@{
+    if (TempData["message"] != null)
+    {
+        <script type="text/javascript">
+            alert(@Html.Raw(Json.Encode(TempData["message"])));
+        </script>
+    }
+}
+<h3>Save Department</h3>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DepartmentCode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DepartmentCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DepartmentCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DepartmentName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DepartmentName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DepartmentName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+              
+            </div>
+        </div>
+    </div>
+}
+
+@*@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<div class="container" id="padding">
+    <div class="row ">
+        <div class="col-lg-offset-3 col-lg-6 well" id="boxShadow">
+            <form method="POST" class="form-horizontal" id="departmentForm">
+                <fieldset>
+                    <legend class="text-center">Add New Department </legend>
+
+                    <div class="form-group ">
+                        <label class="col-sm-3 control-label" for="Code">Code:</label>
+                        <div class="col-sm-9">
+                            @Html.EditorFor(model => model.DepartmentCode, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.DepartmentCode, "", new { @class = "text-danger" })
+                            @*<input type="text" id="Code" name="Code" class="form-control" placeholder="Department Code">*@
+                        @*</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="Name">Name:</label>
+                        <div class="col-sm-9">*@
+                            @*<input type="text" id="Name" name="Name" class="form-control" placeholder="Department Name">*@
+                            @*@Html.EditorFor(model => model.DepartmentName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.DepartmentName, "", new { @class = "text-danger" })*@
+                        @*</div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class=" col-sm-offset-3 col-sm-2">*@
+                            @*<input type="submit" value="Create" class="btn btn-default" />*@
+                            @*<button type="submit" class="btn btn-success btn-block" name="btn">Save</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>*@
+
+
+
+
+
+
+
+
+
+
+
+<div>
+    @Html.ActionLink("View All Departments", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

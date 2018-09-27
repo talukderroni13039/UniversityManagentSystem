@@ -1,0 +1,74 @@
+﻿@model UniversityManagementSystemWebApp.Models.UserDefinedModels.StudentEnrolledCourse
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>StudentEnrolledCourse</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Course.CourseCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Course.CourseCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.StudentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.StudentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentDepartment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentDepartment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnrolledDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnrolledDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GradeLetter)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GradeLetter)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.EnrolledId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

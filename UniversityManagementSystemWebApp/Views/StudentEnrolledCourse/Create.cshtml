@@ -1,0 +1,171 @@
+﻿@model UniversityManagementSystemWebApp.Models.UserDefinedModels.StudentEnrolledCourse
+
+@{
+    ViewBag.Title = "Create";
+}
+<link href="~/Content/themes/base/datepicker.css" rel="stylesheet" />
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<h2>Enroll In a Course</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.StudentId, "Student Reg No.", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("StudentId", null, "Select....", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.StudentId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StudentName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StudentName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.StudentName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StudentEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StudentEmail, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly"  } })
+                @Html.ValidationMessageFor(model => model.StudentEmail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StudentDepartment, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StudentDepartment, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.StudentDepartment, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CourseId, "Select Course", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CourseId", null, "Select....", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
+                <label class="text-danger" id="EnrolledCourse">@ViewBag.CourseEnrolled</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EnrolledDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EnrolledDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EnrolledDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Enroll" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("View All Enrolled Courses", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/jquery-2.2.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            $("#StudentId").change(function () {
+
+                var stdnId = $("#StudentId").val();
+                $("#StudentName").val("");
+                $("#StudentEmail").val("");
+                $("#StudentDepartment").val("");
+                $("#EnrolledCourse").text("");
+                $("#CourseId").empty();
+                var json = { StudentId: stdnId };
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetStudentByStudentId", "Student")',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(json),
+                    success: function (data) {
+                        $("#StudentName").val("" + data.StudentName);
+                        $("#StudentEmail").val("" + data.StudentEmail);
+                        $("#StudentDepartment").val(data.DepartmentName);
+                        $("#CourseId").append('<option value=>Select...</option>');
+                        $.each(data.Courses, function(key, value) {
+                            $("#CourseId").append('<option value=' + value.CourseId + '>' + value.CourseCode + '</option>');
+                        });
+                    }
+                });
+                
+                @*$("#StudentDepartment").val("");
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetDepartmentByStudentId", "Student")',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(json),
+                    success: function (data) {
+                        $("#StudentDepartment").val(data.toString());
+                    }
+                });*@
+
+                @*$("#CourseId").empty();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetCoursesByStudentId", "Course")',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(json),
+                    success: function(data) {
+                        $("#CourseId").append('<option value=>Select...</option>');
+                        $.each(data, function(key, value) {
+                            $("#CourseId").append('<option value=' + value.CourseId + '>' + value.CourseCode + '</option>');
+                        });
+                    }
+                });*@
+            });
+            $("#CourseId").change(function () {
+
+                var crsId = $("#CourseId").val();
+                var stdId = $("#StudentId").val();
+                $("#EnrolledCourse").text("");
+                var json = { CourseId: crsId, StudentId: stdId};
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("IsCourseEnrolled", "StudentEnrolledCourse")',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(json),
+                    success: function (data) {
+                        $("#EnrolledCourse").text(data.toString());
+                    }
+                });
+            });
+
+
+
+        });
+    </script>
+
+<script src="~/Scripts/jquery-ui-1.11.4.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('input[type=datetime]').datepicker({
+            dateFormat: "dd-MM-yy",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-60:+0"
+        });
+
+    });
+</script>
+
+}

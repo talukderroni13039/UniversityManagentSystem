@@ -1,0 +1,69 @@
+﻿@model IEnumerable<UniversityManagementSystemWebApp.Models.UserDefinedModels.StudentEnrolledCourse>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>View All Enrolled Courses</h2>
+
+<p>
+    @Html.ActionLink("Enroll In a Course", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Course.CourseCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Student.StudentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentDepartment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EnrolledDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GradeLetter)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Course.CourseCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Student.StudentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentDepartment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EnrolledDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GradeLetter)
+        </td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.EnrolledId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.EnrolledId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.EnrolledId })
+        </td>*@
+    </tr>
+}
+
+</table>
